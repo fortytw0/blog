@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Fira+Mono&family=Noto+Sans&display=swap');
+
+html { height: 100%; }
+
+body {
+    font-family:  "Fira Mono", monospace;
+    font-size: 1.0rem;
+    line-height: 2;
+    margin: 0;
+    min-height: 100%;
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+html, body  {
+    --headings: #74c0fc;
+    --links: #91A7FF;
+    --highlight: #41C7C7;
+    --bg: #1f242A;
+    --bg-secondary: #323945;
+    --text: #adb5bd;
+    --code-text: #91A7FF;
+    --share-text: #C4C4C4;
+    --contrast: #ffa500;
+    --dark-contrast: #1c1e21;
+}
+
+a {
+    color: var(--links);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: var(--contrast);
+    text-decoration: none;
+}
+
+.icon{
+    font-size: 2em;
+    color: var(--links);
+}
+
+.icon:hover {
+    color: var(--contrast);
+    cursor: pointer;
+}
+
+
+.tag {
+    font-size: 0.7em;
+    margin-right: 8px;
+    padding: 1px;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.tag:hover {
+    border-top: solid;
+    border-right: solid;
+    border-color: var(--dark-contrast);
+    border-width: 10px;
+    padding-left: 3px;
+    padding-bottom: 3px;
+}
+
+.tag-text:hover {
+    font-size: 0.8em;
+    text-decoration: underline;
+}
+
+.tag-text a {
+    color: whitesmoke;
+}
+
+.tag-text a:hover {
+    color: white;
+}
+
+h4 {
+    color: var(--headings);
+    margin-bottom: 20px;
+}
+.post-list-item {
+    border-bottom: dashed var(--text) 1px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+.post-list-item a {
+    text-decoration: none;
+    color: var(--links);
+    /* font-size: 1.2em; */
+}
+.post-list-item a:hover{
+    color: var(--contrast);
+}
+.blog-date { 
+    color: var(--secondary-text);
+    font-size: 0.8em;
+    align-items: baseline;
+    /* margin: 1.2em; */
+}
+li.post-list-item{
+    list-style: none;
+}

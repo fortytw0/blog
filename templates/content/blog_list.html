@@ -1,0 +1,55 @@
+{% extends 'index.html'%}
+
+{% block blog_list %}
+
+    <!-- <ul class="d-none d-xxl-block">
+        {% for blog in blog_list %}
+        <li class="post-list-item"> 
+            
+            <div class="row">
+                <span class="blog-date col-xxl-1">2021-05-23</span>
+                <a href="{% url 'blog' blog.slug %}" class="col-xxl-4 text-start">
+                    {{blog.title}} 
+                </a> 
+                <ul class="list-inline col-xxl-5">
+                    {% for tag in blog.tags %}
+                    <li class="list-inline-item tag tag-text">
+                        <a href=""> {{tag}}</a>
+                    </li>
+                    {% endfor %}                    
+                </ul>
+            </div>
+        </li>    
+        {% endfor %}
+    </ul>  -->
+
+    <ul>
+        {% for blog in blog_list %}
+        <li class="post-list-item"> 
+            
+            <div class="row">
+                <span class="blog-date col-4">2021-05-23</span>
+                <a href="{% url 'blog' blog.slug %}" class="col-12 text-start blog-title">
+                    {{blog.title}} 
+                </a> 
+                <ul class="list-inline col-12">
+                    {% for tag in blog.tags %}
+                    <a href="">
+                        <li class="list-inline-item tag tag-text">
+                            {{tag}}
+                        </li>
+                    </a>
+                    {% endfor %}                    
+                </ul>
+                <div class="col-12 post-desc">
+                    This is some description of the blog, to be added later - 
+                </div>
+                
+            </div>
+        </li>    
+        {% endfor %}
+    </ul> 
+
+
+
+{% endblock %}
