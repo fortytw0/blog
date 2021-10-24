@@ -12,7 +12,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get("DEBUG")))
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED-HOSTS").split("")
+ALLOWED_HOSTS = os.environ.get("ALLOWED-HOSTS").split(",")
 
 from content.parser import parse_content
 CONTENT_DIR = os.environ.get("CONTENT-DIR")

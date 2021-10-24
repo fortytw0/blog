@@ -5,7 +5,7 @@ RUN apt-get update && apt-get upgrade -y && \
                         gcc libc-dev \
                         libffi-dev libssl-dev musl-dev && \
     pip install --upgrade pip \
-    mkdir /blog
+    mkdir /blog 
 
 
 COPY requirements.txt /blog/requirements.txt
