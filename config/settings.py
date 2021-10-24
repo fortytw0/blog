@@ -12,10 +12,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get("DEBUG")))
 
-ALLOWED_HOSTS = os.environ.get("DEBUG").split("")
+ALLOWED_HOSTS = os.environ.get("ALLOWED-HOSTS").split("")
 
 from content.parser import parse_content
-CONTENT_DIR = "content" #TODO : Make this take from environment or config
+CONTENT_DIR = os.environ.get("CONTENT-DIR")
 parse_content(CONTENT_DIR, 'templates/blogs')
 
 
@@ -28,8 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
-    'concordancer'
 ]
 
 MIDDLEWARE = [

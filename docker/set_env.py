@@ -16,7 +16,7 @@ os.environ["DEBUG"] = secrets_file["DEBUG"]
 
 os.environ["ALLOWED-HOSTS"] = secrets_file["ALLOWED-HOSTS"]
 
-
+os.environ["CONTENT-DIR"] = secrets["CONTENT-DIR"]
 
 
 
