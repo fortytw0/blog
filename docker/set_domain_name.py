@@ -1,6 +1,6 @@
 import json
 
-secrets_file = open("secrets.json")
+secrets_file = open("docker/secrets.json")
 secrets = json.load(secrets_file)
 secrets_file.close()
 
