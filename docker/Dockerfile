@@ -16,8 +16,8 @@ RUN pip install --no-cache -r /blog/requirements.txt && \
 
 WORKDIR /blog
 
-RUN chown -R user /blog
+# RUN chown -R user /blog
 
-USER user
+# USER user
 
 CMD ["/bin/bash"]
