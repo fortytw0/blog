@@ -11,7 +11,8 @@ urlpatterns = [
     path('', views.default_view, name='default'),
     path('blogs/<slug:slug>', views.blog_view, name='blog'), 
     path('blogs/', views.blog_list_view, name='blog_list'),
-    # path('concordancer/', include('concordancer.urls'))   
+    path('tags/<slug:tag>', views.tag_view, name='tag')   
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

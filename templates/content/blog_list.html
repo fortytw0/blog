@@ -1,27 +1,4 @@
-{% extends 'index.html'%}
-
 {% block blog_list %}
-
-    <!-- <ul class="d-none d-xxl-block">
-        {% for blog in blog_list %}
-        <li class="post-list-item"> 
-            
-            <div class="row">
-                <span class="blog-date col-xxl-1">2021-05-23</span>
-                <a href="{% url 'blog' blog.slug %}" class="col-xxl-4 text-start">
-                    {{blog.title}} 
-                </a> 
-                <ul class="list-inline col-xxl-5">
-                    {% for tag in blog.tags %}
-                    <li class="list-inline-item tag tag-text">
-                        <a href=""> {{tag}}</a>
-                    </li>
-                    {% endfor %}                    
-                </ul>
-            </div>
-        </li>    
-        {% endfor %}
-    </ul>  -->
 
     <ul>
         {% for blog in blog_list %}
@@ -33,10 +10,10 @@
                     {{blog.title}} 
                 </a> 
                 <ul class="list-inline col-12">
-                    {% for tag in blog.tags %}
-                    <a href="">
+                    {% for tag in blog.tag_slugs %}
+                    <a href="{% url 'tag' tag.tag_slug%}">
                         <li class="list-inline-item tag tag-text">
-                            {{tag}}
+                            {{tag.tag_name}}
                         </li>
                     </a>
                     {% endfor %}                    

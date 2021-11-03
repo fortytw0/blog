@@ -23,6 +23,17 @@ def get_destination_dir(dest_dir=None) :
 
     return dest_dir
 
+def convert_to_slug(s) :
+
+    import string
+
+    slug = s.strip().lower()
+    slug = "".join(c for c in slug if c not in string.punctuation)
+    slug = slug.replace(" ", "_")
+
+    return slug
+ 
+
 class InternalLinkProcessor(InlineProcessor):
     def handleMatch(self, m, data):
         el = etree.Element('a')

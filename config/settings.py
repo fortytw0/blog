@@ -28,9 +28,11 @@ DEBUG = secrets["DEBUG"]=="1"
 
 ALLOWED_HOSTS = secrets["ALLOWED-HOSTS"].split(",")
 
-from content.parser import parse_content
+from content.parser import parse_content, parse_tags
 CONTENT_DIR = secrets["CONTENT-DIR"]
+parse_tags(CONTENT_DIR)
 parse_content(CONTENT_DIR, 'templates/blogs')
+
 
 
 print("CWD : " , os.getcwd())
@@ -133,9 +135,9 @@ USE_TZ = True
 
 STATIC_ROOT = 'assets'
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static')
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

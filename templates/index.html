@@ -40,9 +40,15 @@
             {% endblock %}
         </div>
         
+        {% if blog_list %}
 
-        {% block blog_list %}
-        {% endblock %}
+            <h4>{{blog_list_section_name}}</h4>
+
+            {% block blog_list %}
+                {%include "content/blog_list.html"%}
+            {% endblock %}
+        {% endif %}
+        
 
     </div>
 
