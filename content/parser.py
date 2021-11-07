@@ -11,9 +11,9 @@ def parse_content(src_dir=None, dest_dir=None) :
 
     md = markdown.Markdown(extensions=[InternalLinkExtension()])
     manifest_json = []
-    # slug_keys = []
     md_files = collect_content_files(src_dir)
     tag_post_maps = {}
+    slug_post_maps = {}
 
     for md_file in md_files : 
 
@@ -46,6 +46,7 @@ def parse_content(src_dir=None, dest_dir=None) :
                 tag_post_maps[tag_slug_maps[tag]] = [post.metadata]
 
         manifest_json.append(metadata)
+        slug_post_maps[metadata['slug']] = metadata
 
         print("****Generating manifest json****")
         print(manifest_json)
@@ -56,6 +57,9 @@ def parse_content(src_dir=None, dest_dir=None) :
 
     with open('tag_post.json', 'w') as f : 
         json.dump(tag_post_maps, f)
+
+    with open('slug_post.json', 'w') as f : 
+            json.dump(slug_post_maps, f)
 
 
 def parse_tags(src_dir) :
@@ -82,8 +86,6 @@ def parse_tags(src_dir) :
     with open('tags.json', 'w') as f : 
         json.dump(raw_tags, f)
 
-    # with open('tag_post.json', 'w') as f : 
-    #     json.dump(tag_post_maps, f)
 
     print("**** Generating Tags json *****")
     print(raw_tags)

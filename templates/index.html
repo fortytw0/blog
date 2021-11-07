@@ -39,6 +39,8 @@
             {% block blog %}
             {% endblock %}
         </div>
+
+        <hr>
         
         {% if blog_list %}
 
@@ -47,6 +49,17 @@
             {% block blog_list %}
                 {%include "content/blog_list.html"%}
             {% endblock %}
+
+        {% endif %}
+
+        {% if tag_list %}
+
+        <h4>{{tag_list_section_name}}</h4>
+
+            {% block tag_list %}
+                {% include "content/tag_list.html" %}
+            {% endblock %}
+
         {% endif %}
         
 

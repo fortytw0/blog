@@ -1,0 +1,29 @@
+{% block tag_list %}
+
+    {% if display_tags_inline %}
+        <div class="container">
+            <ul class="row justify-content-center">
+                {% for tag in tag_list %}
+                    <li style="text-decoration: none;">
+                        <a href="{% url 'tag' tag.tag_slug%}" class="tag tag-text">{{ tag.tag_name}}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+        </div>
+
+    {% else %}
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for tag in tag_list %}
+                    <div class="col-4">
+                        <a href="{% url 'tag' tag.tag_slug%}" class="tag tag-text">{{ tag.tag_name}}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    {% endif %}
+
+   
+
+{% endblock %}

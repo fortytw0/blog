@@ -11,6 +11,7 @@ urlpatterns = [
     path('', views.default_view, name='default'),
     path('blogs/<slug:slug>', views.blog_view, name='blog'), 
     path('blogs/', views.blog_list_view, name='blog_list'),
+    path('tags/', views.tag_list_view, name='tag_list'),
     path('tags/<slug:tag>', views.tag_view, name='tag')   
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
