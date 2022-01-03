@@ -33,6 +33,18 @@ a {
     font-weight: bold;
 }
 
+h1 {
+    margin-bottom : 5rem
+}
+
+h2, h3, h4 {
+    margin-bottom: 4.25rem;
+}
+
+p {
+    margin-bottom: 2.5rem;
+}
+
 a:hover {
     color: var(--contrast);
     text-decoration: none;

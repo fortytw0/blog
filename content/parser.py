@@ -4,33 +4,29 @@ import json
 import markdown
 import string
 
-from content.parser_util import collect_content_files, convert_to_slug, get_destination_dir ,InternalLinkExtension
+from content.parser_util import *
 
 
 def parse_content(src_dir=None, dest_dir=None) :
 
-    md = markdown.Markdown(extensions=[InternalLinkExtension()])
-    manifest_json = []
+    
     md_files = collect_content_files(src_dir)
+    num_md_files = len(md_files)
+
+    manifest_json = []
     tag_post_maps = {}
     slug_post_maps = {}
 
-    for md_file in md_files : 
+    for i, md_file in enumerate(md_files) : 
 
-        with open(md_file, 'r') as f : 
-            post = frontmatter.load(f)
+        print("Working on : {}/{}".format(i+1, num_md_files))
 
-        metadata = post.metadata
-        content = post.content
+        content, metadata = content_and_meta_from_md(md_file)
+        save_md_content_as_html(content, metadata, dest_dir)
 
-        html_content = md.convert(content)
-        html_path = os.path.join(get_destination_dir(dest_dir), metadata['slug']+'.html')
-
-        with open(html_path, 'w') as html_output : 
-            html_output.write("{% extends 'index.html' %}\n\n")
-            html_output.write("{% block blog %}\n\n")
-            html_output.write(html_content)
-            html_output.write("\n\n{% endblock %}")
+        #--------#
+        
+        print("Generating the tag-slug json...")
 
         with open("tags.json", "r") as f :
             tag_slug_maps = json.load(f)
@@ -41,25 +37,29 @@ def parse_content(src_dir=None, dest_dir=None) :
             metadata['tag_slugs'].append({"tag_name" : tag,
                                 "tag_slug" : tag_slug_maps[tag]})
             try : 
-                tag_post_maps[tag_slug_maps[tag]].append(post.metadata)
+                tag_post_maps[tag_slug_maps[tag]].append(metadata)
             except : 
-                tag_post_maps[tag_slug_maps[tag]] = [post.metadata]
+                tag_post_maps[tag_slug_maps[tag]] = [metadata]
 
+        save_as_json(slug_post_maps, 'slug_post.json')
+
+        #--------#
+
+        print("Generating manifest metadata json...")
         manifest_json.append(metadata)
+        save_as_json(manifest_json, 'manifest.json')
+
+        #--------#
+        
+        print("Generating slug-metadata json")
         slug_post_maps[metadata['slug']] = metadata
+        save_as_json(slug_post_maps, 'slug_post.json')
 
-        print("****Generating manifest json****")
-        print(manifest_json)
-        print("********")
+        #--------#
 
-    with open('manifest.json', 'w') as mj: 
-        json.dump(manifest_json, mj)
+        print("Finished working on {}.\n\n".format(md_file))
 
-    with open('tag_post.json', 'w') as f : 
-        json.dump(tag_post_maps, f)
 
-    with open('slug_post.json', 'w') as f : 
-            json.dump(slug_post_maps, f)
 
 
 def parse_tags(src_dir) :
@@ -67,7 +67,6 @@ def parse_tags(src_dir) :
     md_files = collect_content_files(src_dir)
     raw_tags = {}
     tag_set = []
-    # tag_post_maps = {}
 
 
     for md_file in md_files : 
@@ -82,13 +81,7 @@ def parse_tags(src_dir) :
                 tag_slug = convert_to_slug(tag)
                 raw_tags[tag] = tag_slug
                 
+    save_as_json(raw_tags, 'tags.json')
 
-    with open('tags.json', 'w') as f : 
-        json.dump(raw_tags, f)
-
-
-    print("**** Generating Tags json *****")
-    print(raw_tags)
-    print("*********")
 
 

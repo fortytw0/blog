@@ -1,9 +1,16 @@
 import os
 import glob
+import frontmatter
+import markdown
+import json
 
 from markdown.inlinepatterns import InlineProcessor
 from markdown.extensions import Extension
 import xml.etree.ElementTree as etree
+
+# parse internal links like this : 
+# (internal-link-title)|slug-to-internal-link|
+# (tutorial)|this_is_a_tutorial|
 
 def collect_content_files(src_dir=None) :
 
@@ -33,6 +40,37 @@ def convert_to_slug(s) :
 
     return slug
  
+def content_and_meta_from_md(md_file_path) :
+
+    with open(md_file_path, 'r') as f : 
+            post = frontmatter.load(f)
+
+    metadata = post.metadata
+    content = post.content
+
+    return content, metadata
+
+def save_md_content_as_html(content, metadata, dest_dir) : 
+
+    md = markdown.Markdown(extensions=[InternalLinkExtension()])
+    html_content = md.convert(content)
+    html_path = os.path.join(get_destination_dir(dest_dir), metadata['slug']+'.html')
+
+    with open(html_path, 'w') as html_output : 
+        html_output.write("{% extends 'index.html' %}\n\n")
+        html_output.write("{% block blog %}\n\n")
+        html_output.write(html_content)
+        html_output.write("\n\n{% endblock %}")
+
+def save_as_json(iterable, path, verbose=True):
+
+    with open(path, 'w') as f : 
+        json.dump(iterable, f)
+
+    if verbose : 
+        print("Saved to : ", path)
+
+
 
 class InternalLinkProcessor(InlineProcessor):
     def handleMatch(self, m, data):
@@ -45,7 +83,6 @@ class InternalLinkProcessor(InlineProcessor):
 
 class InternalLinkExtension(Extension):
     def extendMarkdown(self, md):
-        # PATTERN = r'\[(.*)\]\|([a-zA-Z0-9_%\-\?=&]*)\|' 
         PATTERN = r'\((.*)\)\|(.*)\|'
         md.inlinePatterns.register(InternalLinkProcessor(PATTERN, md), 'internal-link', 175)
     

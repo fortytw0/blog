@@ -16,7 +16,7 @@ def blog_list_view(request) :
 
     with open('manifest.json', 'r') as mj :
         manifest = json.load(mj)
-        ordered_manifest = sorted(manifest, key=lambda x : time.strptime(x['date'], "%d-%m-%Y"))
+        ordered_manifest = sorted(manifest, key=lambda x : time.strptime(x['date'], "%d-%m-%Y"), reverse=True)
 
     return render(request, 'index.html', context={'blog_list':ordered_manifest})
     
@@ -26,7 +26,7 @@ def default_view(request) :
     with open('manifest.json', 'r') as mj :
             manifest = json.load(mj)
 
-    ordered_manifest = sorted(manifest, key=lambda x : time.strptime(x['date'], "%d-%m-%Y"))
+    ordered_manifest = sorted(manifest, key=lambda x : time.strptime(x['date'], "%d-%m-%Y"), reverse=True)
     
     if len(ordered_manifest)>5 :
         ordered_manifest = ordered_manifest[:5]
@@ -40,6 +40,8 @@ def tag_view(request, tag) :
         tag_post_map = json.load(f)
 
     blog_list = tag_post_map[tag]
+
+    print(tag)
 
     return render(request, 'index.html', context={'show_about':False, 'blog_list_section_name' : tag,  'blog_list':blog_list})
 
