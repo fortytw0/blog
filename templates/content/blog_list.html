@@ -5,7 +5,7 @@
         <li class="post-list-item"> 
             
             <div class="row">
-                <span class="blog-date col-4">2021-05-23</span>
+                <span class="blog-date col-4">{{ blog.date }}</span>
                 <a href="{% url 'blog' blog.slug %}" class="col-12 text-start blog-title">
                     {{blog.title}} 
                 </a> 

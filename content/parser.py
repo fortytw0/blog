@@ -41,6 +41,7 @@ def parse_content(src_dir=None, dest_dir=None) :
             except : 
                 tag_post_maps[tag_slug_maps[tag]] = [metadata]
 
+        save_as_json(tag_post_maps, 'tag_post.json')
         save_as_json(slug_post_maps, 'slug_post.json')
 
         #--------#
