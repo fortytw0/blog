@@ -1,11 +1,7 @@
-import json
-
-secrets_file = open("docker/secrets.json")
-secrets = json.load(secrets_file)
-secrets_file.close()
-
+import os
 from django.contrib.sites.models import Site
+
 one = Site.objects.all()[0]
-one.domain = secrets['DOMAIN']
-one.name = secrets['NAME']
+one.domain = os.environ.get('DOMAIN')
+one.name = os.environ.get('NAME')
 one.save()

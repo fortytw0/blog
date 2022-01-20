@@ -42,7 +42,7 @@ def convert_to_slug(s) :
  
 def content_and_meta_from_md(md_file_path) :
 
-    with open(md_file_path, 'r') as f : 
+    with open(md_file_path, encoding = 'utf-8', mode = 'r+') as f : 
             post = frontmatter.load(f)
 
     metadata = post.metadata
@@ -56,7 +56,7 @@ def save_md_content_as_html(content, metadata, dest_dir) :
     html_content = md.convert(content)
     html_path = os.path.join(get_destination_dir(dest_dir), metadata['slug']+'.html')
 
-    with open(html_path, 'w') as html_output : 
+    with open(html_path, encoding='utf-8', mode='w') as html_output : 
         html_output.write("{% extends 'index.html' %}\n\n")
         html_output.write("{% block blog %}\n\n")
         html_output.write(html_content)
@@ -64,7 +64,7 @@ def save_md_content_as_html(content, metadata, dest_dir) :
 
 def save_as_json(iterable, path, verbose=True):
 
-    with open(path, 'w') as f : 
+    with open(path, encoding='utf-8', mode='w') as f : 
         json.dump(iterable, f)
 
     if verbose : 

@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+
+{% block blog %}
+
+<h1>Default Docker Deploy Environment</h1>
+<h3>If you read my last blog post, I decided that I will focus on designing a deployment environment, so that I can publish my changes as and when they happen. This is it, folks!</h3>
+<p>This blog is really just a place holder for my Github repository that holds the environment. </p>
+<p><a href="https://github.com/fortytw0/default-django-deploy/tree/example">### Use this link to clone the repository.</a></p>
+<p>The example is really straightforward, you can just use the <code>docker-compose up --build</code> command to run the setup. </p>
+<p>This branch exists to provide you a glimpse into how you can setup your services and have a reverse-proxy serve them to the web. Some things that you can note : </p>
+<ol>
+<li>Start with your service. In the docker folder for each uniquely named service, configure the <code>docker/nginx.conf</code>.</li>
+<li>You should change the server name to whatever you provide in the <code>docker-compose.yml</code>. </li>
+<li>The <code>location</code> parameter is whatever sub-url that will be passed from the reverse-proxy. </li>
+<li>This sub-url system needs to lineup with Django's URL system, and allowed hosts as well. So in your Django project, ensure that your urls are prefixed appropriately (in this example, they are prefixed with 'service1') and </li>
+<li>
+<p>Ensure that you edit the <code>ALLOWED_HOSTS</code> parameter in <code>docker/RUN_SECRETS.env</code> .</p>
+</li>
+<li>
+<p>Move to the server. Open <code>docker/nginx.conf</code></p>
+</li>
+<li>You should ideally provide a <code>server_name</code>, which is typically your domain name. </li>
+<li>
+<p>Add proxies to your services. The <code>location</code> parameter should align with the service sub-urls you have provided. </p>
+</li>
+<li>
+<p>Move to the <code>docker-compose.yml</code>. </p>
+</li>
+<li>Add your service entrypoint file, your environment files, and remember to connect it to the bridge network. </li>
+<li>Link the 80 and 443 ports to the server's operating port. In this example, that would be port 3000. </li>
+</ol>
+<h3>And that's it! You are done! Feels good to have such easy deployment right?</h3>
+<p>If you have any problems running this - you can email me at dananjay (dot) srinivas (at) colorado d(dot) edu</p>
+
+{% endblock %}

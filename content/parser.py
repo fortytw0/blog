@@ -72,7 +72,7 @@ def parse_tags(src_dir) :
 
     for md_file in md_files : 
 
-        with open(md_file, 'r') as f : 
+        with open(md_file,encoding = 'utf-8', mode = "r+") as f : 
             post = frontmatter.load(f)
 
         for tag in post.metadata['tags'] : 
